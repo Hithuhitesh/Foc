@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Function to convert binary to decimal
+binary_to_decimal() {
+    binary=$1
+    decimal=0
+    power=0
+
+    while [ $binary -gt 0 ]; do
+        digit=$((binary % 10))
+        decimal=$((decimal + digit * 2 ** power))
+        power=$((power + 1))
+        binary=$((binary / 10))
+    done
+
+    echo $decimal
+}
+
+# Read binary number from user
+read -p "Enter a binary number: " binary_number
+
+# Validate input as a binary number
+if ! [[ $binary_number =~ ^[01]+$ ]]; then
+    echo "Invalid binary number!"
+    exit 1
+fi
+
+# Convert binary to decimal
+decimal_number=$(binary_to_decimal $binary_number)
+
+# Print the decimal equivalent
+echo "Decimal equivalent: $decimal_number"
